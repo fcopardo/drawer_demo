@@ -27,7 +27,6 @@ class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
 
   _getDrawerItemWidget(int pos) {
-    pos = 4;
     switch (pos) {
       case 0:
         return new FirstFragment();
