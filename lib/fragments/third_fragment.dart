@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:drawer_demo/fragments/baseView.dart';
 
-class ThirdFragment extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Center(
-      child: new Text("Hello Fragment 3"),
-    );
+class ThirdFragment extends baseView {
+
+  ThirdFragment(){
+    setTitle("Hello third fragment");
   }
 
 }

@@ -1,3 +1,4 @@
+import 'package:drawer_demo/fragments/baseView.dart';
 import 'package:drawer_demo/fragments/first_fragment.dart';
 import 'package:drawer_demo/fragments/second_fragment.dart';
 import 'package:drawer_demo/fragments/third_fragment.dart';
@@ -26,16 +27,17 @@ class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
 
   _getDrawerItemWidget(int pos) {
+    pos = 4;
     switch (pos) {
       case 0:
         return new FirstFragment();
       case 1:
         return new SecondFragment();
       case 2:
-        return new ThirdFragment();
+        return new ThirdFragment().setTitle("A new title");
 
       default:
-        return new Text("Error");
+        return new baseView().setTitle("Extra title $pos");
     }
   }
   
