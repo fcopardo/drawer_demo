@@ -2,6 +2,7 @@ import 'package:drawer_demo/fragments/baseView.dart';
 import 'package:drawer_demo/fragments/first_fragment.dart';
 import 'package:drawer_demo/fragments/second_fragment.dart';
 import 'package:drawer_demo/fragments/third_fragment.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DrawerItem {
@@ -61,11 +62,7 @@ class HomePageState extends State<HomePage> {
     }
 
     return new Scaffold(
-      appBar: new AppBar(
-        // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title
-        title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
-      ),
+      appBar: getAppBar(new Text(widget.drawerItems[_selectedDrawerIndex].title)),
       drawer: new Drawer(
         child: new Column(
           children: <Widget>[
@@ -77,5 +74,17 @@ class HomePageState extends State<HomePage> {
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
+  }
+
+  T getAppBar<T extends PreferredSizeWidget>(Widget aTitle){
+    if(TargetPlatform.iOS == null || Theme.of(context).platform != TargetPlatform.iOS){
+      return AppBar(
+        title: aTitle,
+      ) as T;
+    }else{
+      return CupertinoNavigationBar(
+        middle: aTitle,
+      ) as T;
+    }
   }
 }
