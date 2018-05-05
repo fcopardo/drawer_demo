@@ -25,9 +25,9 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int _selectedDrawerIndex = 0;
+  int selectedDrawerIndex = 0;
 
-  _getDrawerItemWidget(int pos) {
+  getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
         return new FirstFragment();
@@ -41,8 +41,8 @@ class HomePageState extends State<HomePage> {
     }
   }
   
-  _onSelectItem(int index) {
-    setState(() => _selectedDrawerIndex = index);
+  onSelectItem(int index) {
+    setState(() => selectedDrawerIndex = index);
     Navigator.of(context).pop(); // close the drawer
   }
 
@@ -55,29 +55,73 @@ class HomePageState extends State<HomePage> {
         new ListTile(
           leading: new Icon(d.icon),
           title: new Text(d.title),
-          selected: i == _selectedDrawerIndex,
-          onTap: () => _onSelectItem(i),
+          selected: i == selectedDrawerIndex,
+          onTap: () => onSelectItem(i),
         )
       );
     }
 
-    return new Scaffold(
-      appBar: getAppBar(new Text(widget.drawerItems[_selectedDrawerIndex].title)),
-      drawer: new Drawer(
-        child: new Column(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-                accountName: new Text("John Doe"), accountEmail: null),
-            new Column(children: drawerOptions)
-          ],
+    if(Theme.of(context).platform != TargetPlatform.iOS){
+      return new Scaffold(
+        appBar: getAppBar(new Text(widget.drawerItems[selectedDrawerIndex].title)),
+        drawer: new Drawer(
+          child: new Column(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                  accountName: new Text("John Doe"), accountEmail: null),
+              new Column(children: drawerOptions)
+            ],
+          ),
         ),
-      ),
-      body: _getDrawerItemWidget(_selectedDrawerIndex),
-    );
+        body: getDrawerItemWidget(selectedDrawerIndex),
+      );
+
+    }else{
+
+
+      return new CupertinoTabScaffold(
+        tabBar: new CupertinoTabBar(items: const <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.home),
+            title: const Text('Home'),
+          ),
+          const BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.conversation_bubble),
+            title: const Text('Support'),
+          ),
+          const BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.profile_circled),
+            title: const Text('Profile'),
+          ),
+        ],
+
+        ),
+      );
+
+      /*return new Scaffold(
+        appBar: getAppBar(new Text(widget.drawerItems[selectedDrawerIndex].title)),
+        drawer: new Drawer(
+          child: new Column(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                  accountName: new Text("John Doe"), accountEmail: null),
+              new Column(children: drawerOptions)
+            ],
+          ),
+        ),
+        body: getDrawerItemWidget(selectedDrawerIndex),
+      );*/
+
+
+
+
+    }
+
+
   }
 
   T getAppBar<T extends PreferredSizeWidget>(Widget aTitle){
-    if(TargetPlatform.iOS == null || Theme.of(context).platform != TargetPlatform.iOS){
+    if(Theme.of(context).platform != TargetPlatform.iOS){
       return AppBar(
         title: aTitle,
       ) as T;

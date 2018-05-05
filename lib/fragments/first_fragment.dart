@@ -22,7 +22,7 @@ class FirstFragment extends baseView {
           fit: BoxFit.cover,
         ),
         // ...
-        materialPageTitle(),
+        MaterialPageTitle(),
         ButtonRowGroup(),
         TextRow()
       ],
