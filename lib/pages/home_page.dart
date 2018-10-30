@@ -61,7 +61,7 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    if(Theme.of(context).platform != TargetPlatform.iOS){
+    if(Theme.of(context).platform != TargetPlatform.iOS || 1>0){
       return new Scaffold(
         appBar: getAppBar(new Text(widget.drawerItems[selectedDrawerIndex].title)),
         drawer: new Drawer(

@@ -26,7 +26,7 @@ class FirstFragment extends baseView {
         ButtonRowGroup(),
         TextRow()
       ],
-    )
+    );
 
     return titleSection;
   }
